@@ -53,9 +53,44 @@ Defined via a `type` string passed to the `Enemy` constructor: `"basic"`, `"fast
 
 A Claude Code GitHub Actions workflow (`.github/workflows/claude.yml`) is configured. Mention `@claude` in any issue, PR, or comment to trigger it. Requires `ANTHROPIC_API_KEY` set as a repository secret.
 
-## Commit Convention
+## Git Workflow — Always Commit and Push
 
-- First line: concise imperative summary (what + why at a glance)
-- Body: bullet list of specific changes grouped by concern
-- Always include `Co-Authored-By: Claude Sonnet 4.6 <noreply@anthropic.com>` trailer
-- Push to `origin master` after each meaningful change
+**Every meaningful change must be committed and pushed to GitHub immediately.** This ensures no work is ever lost and the repo always reflects the current state of the project.
+
+### When to commit
+- After completing any feature, fix, or improvement — no matter how small
+- After updating any config or documentation file
+- Never leave modified files sitting uncommitted at the end of a session
+
+### Commit message format
+```
+Short imperative summary of what changed and why (≤72 chars)
+
+- Bullet describing the first specific change
+- Bullet describing the second specific change
+- Group related changes together
+
+Co-Authored-By: Claude Sonnet 4.6 <noreply@anthropic.com>
+```
+
+Rules:
+- First line answers "what does this commit do?" — not "what files changed?"
+- Body bullets explain the *why* and *what*, not just file names
+- Always include the `Co-Authored-By` trailer
+- Stage specific files by name — never `git add .` or `git add -A`
+- Always push immediately after committing: `git push origin master`
+
+### Workflow per change
+```bash
+git add <specific files>
+git commit -m "$(cat <<'EOF'
+Summary line
+
+- Change detail 1
+- Change detail 2
+
+Co-Authored-By: Claude Sonnet 4.6 <noreply@anthropic.com>
+EOF
+)"
+git push origin master
+```
